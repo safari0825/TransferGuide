@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/widget41"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView
+	android:id="@+id/title1"
+	android:layout_width="319dp"
+	android:layout_height="22dp"
+	android:background="#ffcccccc"
+	android:text="&#20056;&#36710;&#25351;&#21335;"
+	android:typeface="monospace"
+	android:textStyle="bold" />
+<LinearLayout
+	android:id="@+id/line1"
+	android:layout_width="319dp"
+	android:layout_height="35dp">
+<TextView
+	android:id="@+id/start"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:background="#ff00ff66"
+	android:text="&#20986;&#21457;"
+	android:typeface="monospace"
+	android:textStyle="bold"
+	android:layout_gravity="center_horizontal" />
+<EditText
+	android:id="@+id/arriveInput"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:textSize="18sp" />
+</LinearLayout>
+<LinearLayout
+	android:id="@+id/line2"
+	android:layout_width="319dp"
+	android:layout_height="37dp"
+	android:gravity="center">
+<TextView
+	android:id="@+id/end"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:background="#ff00ff66"
+	android:text="&#21040;&#36798;"
+	android:typeface="monospace"
+	android:textStyle="bold"
+	android:layout_gravity="center_vertical" />
+<EditText
+	android:id="@+id/startInput"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:textSize="18sp" />
+</LinearLayout>
+<RelativeLayout
+	android:id="@+id/widget42"
+	android:layout_width="318dp"
+	android:layout_height="77dp">
+<Button
+	android:id="@+id/widget43"
+	android:layout_width="205dp"
+	android:layout_height="wrap_content"
+	android:text="Search"
+	android:gravity="center"
+	android:layout_alignParentBottom="true"
+	android:layout_centerHorizontal="true" />
+</RelativeLayout>
+</LinearLayout>

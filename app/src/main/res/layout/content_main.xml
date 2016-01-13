@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/widget41"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
+<TextView
+	android:id="@+id/title1"
+	android:layout_width="match_parent"
+	android:layout_height="50dp"
+	android:background="#ffcccccc"
+	android:text="@string/title"
+	android:typeface="monospace"
+	android:textStyle="bold"
+    android:gravity="center_vertical|center_horizontal" />
+<LinearLayout
+	android:id="@+id/line1"
+	android:layout_width="match_parent"
+	android:layout_height="50dp">
+<TextView
+	android:id="@+id/start"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:background="#ff00ff66"
+	android:text="@string/start"
+	android:typeface="monospace"
+	android:textStyle="bold"
+	android:gravity="center_vertical"
+	android:layout_gravity="center_vertical" />
+<EditText
+	android:id="@+id/arriveInput"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_gravity="center_vertical"
+	android:gravity="center_vertical"/>
+</LinearLayout>
+	<Space android:layout_width="match_parent"
+		android:layout_height="5dp"/>
+<LinearLayout
+	android:id="@+id/line2"
+	android:layout_width="match_parent"
+	android:layout_height="50dp"
+	android:gravity="center">
+<TextView
+	android:id="@+id/end"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:background="#ff00ff66"
+	android:text="@string/finish"
+	android:typeface="monospace"
+	android:textStyle="bold"
+	android:gravity="center_vertical"
+	android:layout_gravity="center_vertical"
+	/>
+<EditText
+	android:id="@+id/startInput"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_gravity="center_vertical"/>
+</LinearLayout>
+<RelativeLayout
+	android:id="@+id/widget42"
+	android:layout_width="match_parent"
+	android:layout_height="77dp">
+<Button
+	android:id="@+id/widget43"
+	android:layout_width="205dp"
+	android:layout_height="wrap_content"
+	android:text="@string/search"
+	android:gravity="center"
+	android:layout_alignParentBottom="true"
+	android:layout_centerHorizontal="true" />
+</RelativeLayout>
+</LinearLayout>
