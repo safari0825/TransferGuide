@@ -22,10 +22,8 @@ jacoco.exec
 
 # Built application files
 *.apk
-*.ap_
 
 # Android Studio captures folder
-/captures
 
 
 # Log Files
@@ -44,7 +42,6 @@ jacoco.exec
 bin/
 gen/
 out
-lib
 
 # Eclipse project files
 .classpath
