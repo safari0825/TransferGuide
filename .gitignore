@@ -4,6 +4,7 @@
 *.ipr
 *.iws
 
+/gradlew
 # Gradle
 .gradle
 gradlew.bat
