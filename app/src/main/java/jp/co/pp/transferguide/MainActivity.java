@@ -31,17 +31,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         final Button srchButton = (Button) findViewById(R.id.srchButton);
         final EditText text1 = (EditText)findViewById(R.id.startInput);
         final EditText text2 = (EditText)findViewById(R.id.arriveInput);
@@ -70,7 +60,7 @@ public class MainActivity extends Activity {
                 }
 
                 if (viaCount == 2) {
-                    g1.removeView(txtVia);
+                    txtVia.setVisibility(View.GONE);
                 }
                 for(int i = 0; i <= viaCount;i++) {
                     LinearLayout delLine = (LinearLayout)findViewById(10 + i);
@@ -96,11 +86,15 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             int clickLineIdx = v.getId();
-                            LinearLayout delLine = (LinearLayout)findViewById(10 + clickLineIdx);
+                            LinearLayout delLine = (LinearLayout) findViewById(10 + clickLineIdx );
                             g1.removeView(delLine);
-
-                            if(viaCount >=3) {
-                                g1.addView(txtVia);
+//                            for ( int i = clickLineIdx ; i < viaCount - 1; i++) {
+//                                LinearLayout nextLine = (LinearLayout) findViewById(10 + (i + 1));
+//                                g1.removeView(nextLine) ;
+//                                g1.addView(nextLine,i);
+//                            }
+                            if (viaCount >= 3) {
+                                txtVia.setVisibility(View.VISIBLE);
                             }
                             viaCount--;
                         }
@@ -131,6 +125,27 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+//    OnClickListener addViaBtnClick = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            final GridLayout g1= (GridLayout)findViewById(R.id.g1);
+//            final TextView txtVia = (TextView) findViewById(R.id.via);
+//
+//
+//        }
+//    };
+//
+//    OnClickListener delViaBtnClick = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            final GridLayout g1= (GridLayout)findViewById(R.id.g1);
+//
+//            final TextView txtVia = (TextView) findViewById(R.id.via);
+//
+//            RedrawViaGrid(g1);
+//        }
+//    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
