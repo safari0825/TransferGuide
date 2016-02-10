@@ -13,49 +13,76 @@
 	android:background="#ffcccccc"
 	android:text="@string/title"
 	android:typeface="monospace"
+	android:textSize="30dp"
 	android:textStyle="bold"
     android:gravity="center_vertical|center_horizontal" />
 <LinearLayout
 	android:id="@+id/line1"
 	android:layout_width="match_parent"
-	android:layout_height="50dp">
+	android:layout_height="50dp"
+	android:paddingTop="0dp">
 <TextView
 	android:id="@+id/start"
 	android:layout_width="wrap_content"
 	android:layout_height="match_parent"
-	android:background="#ff00ff66"
 	android:text="@string/start"
 	android:typeface="monospace"
 	android:textStyle="bold"
 	android:gravity="center_vertical"
-	android:layout_gravity="center_vertical" />
+	android:layout_gravity="bottom" />
 <EditText
-	android:id="@+id/arriveInput"
+	android:id="@+id/startInput"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layout_gravity="center_vertical"
+	android:layout_gravity="bottom"
 	android:gravity="center_vertical"/>
 </LinearLayout>
-	<Space android:layout_width="match_parent"
-		android:layout_height="5dp"/>
+<GridLayout
+	android:id="@+id/g1"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:rowCount="4"
+	android:columnCount="3"
+	android:padding="0dp">
+	<TextView
+		android:id="@+id/via"
+		android:layout_height="50dp"
+		android:layout_width="50dp"
+		android:gravity="center_vertical"
+		android:text="+经由"
+		android:clickable="true"
+		android:layout_row="3"
+		android:layout_column="0" />
+
+	<ImageButton
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:id="@+id/reverseBtn"
+		android:layout_rowSpan="4"
+		android:layout_row="0"
+		android:layout_column="2"
+		android:src="@mipmap/rev1"
+		android:scaleType="fitCenter"
+		android:layout_gravity="center_vertical"/>
+
+</GridLayout>
 <LinearLayout
 	android:id="@+id/line2"
 	android:layout_width="match_parent"
 	android:layout_height="50dp"
-	android:gravity="center">
+	android:paddingTop="0dp">
 <TextView
 	android:id="@+id/end"
 	android:layout_width="wrap_content"
 	android:layout_height="match_parent"
-	android:background="#ff00ff66"
 	android:text="@string/finish"
 	android:typeface="monospace"
 	android:textStyle="bold"
 	android:gravity="center_vertical"
-	android:layout_gravity="center_vertical"
+	android:layout_gravity="bottom"
 	/>
 <EditText
-	android:id="@+id/startInput"
+	android:id="@+id/arriveInput"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:layout_gravity="center_vertical"/>
@@ -65,9 +92,10 @@
 	android:layout_width="match_parent"
 	android:layout_height="77dp">
 <Button
-	android:id="@+id/widget43"
+	android:id="@+id/srchButton"
 	android:layout_width="205dp"
 	android:layout_height="wrap_content"
+	android:background="#ffa500"
 	android:text="@string/search"
 	android:gravity="center"
 	android:layout_alignParentBottom="true"
