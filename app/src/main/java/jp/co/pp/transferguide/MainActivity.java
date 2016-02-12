@@ -1,6 +1,7 @@
 package jp.co.pp.transferguide;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -122,6 +123,9 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"Text1:" + text1.getText() ,Toast.LENGTH_LONG).show();
                 Toast.makeText(MainActivity.this,"Text2:" + text2.getText() ,Toast.LENGTH_LONG).show();
+
+                Intent toRlstInt = new Intent(getApplicationContext(),SrchResultActivity.class);
+                startActivityForResult(toRlstInt,0);
             }
         });
     }
