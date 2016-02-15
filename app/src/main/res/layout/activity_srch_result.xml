@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context="jp.co.pp.transferguide.SrchResultActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -14,13 +14,13 @@
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/toolbar_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--app:contentScrim="?attr/colorPrimary"-->
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -29,10 +29,14 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
     </android.support.design.widget.AppBarLayout>
 
+
     <include layout="@layout/content_srch_result" />
+
+
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
@@ -42,5 +46,14 @@
         <!--android:src="@android:drawable/ic_dialog_email"-->
         <!--app:layout_anchor="@id/app_bar"-->
         <!--app:layout_anchorGravity="bottom|end" />-->
-
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e0e0e0"
+        app:tabIndicatorColor="#ef5350"
+        app:tabSelectedTextColor="#1976d2"
+        app:tabTextColor="#90caf9"
+        android:layout_gravity="bottom"
+        app:layout_scrollFlags="scroll|enterAlways"/>
 </android.support.design.widget.CoordinatorLayout>
