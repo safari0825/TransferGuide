@@ -7,4 +7,10 @@
     <string name="search">检索</string>
     <string name="via">经由</string>
     <string name="InputVia">输入经由地</string>
+
+    <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="research_button">现在时间再检索</string>
+    <string name="changeSrchCond">变更检索条件</string>
+    <string name="title_activity_srch_result">SrchResultActivity</string>
+    <string name="no">1</string>
 </resources>

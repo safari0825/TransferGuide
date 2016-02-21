@@ -1,9 +1,11 @@
 package jp.co.pp.transferguide;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -24,24 +26,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     protected int viaCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        for (int i = 0; i < 3; i++)
+            tabLayout.addTab(tabLayout.newTab().setText("选项卡" + i));
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
         final Button srchButton = (Button) findViewById(R.id.srchButton);
         final EditText text1 = (EditText)findViewById(R.id.startInput);
         final EditText text2 = (EditText)findViewById(R.id.arriveInput);
@@ -70,7 +67,7 @@ public class MainActivity extends Activity {
                 }
 
                 if (viaCount == 2) {
-                    g1.removeView(txtVia);
+                    txtVia.setVisibility(View.GONE);
                 }
                 for(int i = 0; i <= viaCount;i++) {
                     LinearLayout delLine = (LinearLayout)findViewById(10 + i);
@@ -96,11 +93,15 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             int clickLineIdx = v.getId();
-                            LinearLayout delLine = (LinearLayout)findViewById(10 + clickLineIdx);
+                            LinearLayout delLine = (LinearLayout) findViewById(10 + clickLineIdx );
                             g1.removeView(delLine);
-                            
-                            if(viaCount >=3) {
-                                g1.addView(txtVia);
+//                            for ( int i = clickLineIdx ; i < viaCount - 1; i++) {
+//                                LinearLayout nextLine = (LinearLayout) findViewById(10 + (i + 1));
+//                                g1.removeView(nextLine) ;
+//                                g1.addView(nextLine,i);
+//                            }
+                            if (viaCount >= 3) {
+                                txtVia.setVisibility(View.VISIBLE);
                             }
                             viaCount--;
                         }
@@ -128,9 +129,33 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"Text1:" + text1.getText() ,Toast.LENGTH_LONG).show();
                 Toast.makeText(MainActivity.this,"Text2:" + text2.getText() ,Toast.LENGTH_LONG).show();
+
+                Intent toRlstInt = new Intent(getApplicationContext(),SrchResultActivity.class);
+                startActivityForResult(toRlstInt,0);
             }
         });
     }
+
+//    OnClickListener addViaBtnClick = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            final GridLayout g1= (GridLayout)findViewById(R.id.g1);
+//            final TextView txtVia = (TextView) findViewById(R.id.via);
+//
+//
+//        }
+//    };
+//
+//    OnClickListener delViaBtnClick = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            final GridLayout g1= (GridLayout)findViewById(R.id.g1);
+//
+//            final TextView txtVia = (TextView) findViewById(R.id.via);
+//
+//            RedrawViaGrid(g1);
+//        }
+//    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
