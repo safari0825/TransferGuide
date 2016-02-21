@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
                             int clickLineIdx = v.getId();
                             LinearLayout delLine = (LinearLayout)findViewById(10 + clickLineIdx);
                             g1.removeView(delLine);
-
+                            
                             if(viaCount >=3) {
                                 g1.addView(txtVia);
                             }
