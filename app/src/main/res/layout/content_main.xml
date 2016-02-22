@@ -30,7 +30,7 @@
 	android:textStyle="bold"
 	android:gravity="center_vertical"
 	android:layout_gravity="bottom" />
-<EditText
+<AutoCompleteTextView
 	android:id="@+id/startInput"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -81,7 +81,7 @@
 	android:gravity="center_vertical"
 	android:layout_gravity="bottom"
 	/>
-<EditText
+<AutoCompleteTextView
 	android:id="@+id/arriveInput"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"

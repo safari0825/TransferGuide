@@ -13,4 +13,15 @@
     <string name="changeSrchCond">变更检索条件</string>
     <string name="title_activity_srch_result">SrchResultActivity</string>
     <string name="no">1</string>
+
+    <string-array name="drawer_menu">
+        <item>换乘查询</item>
+        <item>线路图</item>
+        <item>车站</item>
+        <item>地图</item>
+        <item>设置</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

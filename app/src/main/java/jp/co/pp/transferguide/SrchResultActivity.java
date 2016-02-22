@@ -42,6 +42,5 @@ public class SrchResultActivity extends AppCompatActivity {
         final ListAdapter sampleRecyclerAdapter = new ListAdapter(getApplicationContext());
         // 填充Adapter
         recyclerView.setAdapter(sampleRecyclerAdapter);
-
     }
 }
