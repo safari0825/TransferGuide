@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.List;
 
@@ -15,37 +16,43 @@ import java.util.List;
 public class NaviListAdapter extends ArrayAdapter<NaviListAdapter.BindData> {
 
     private LayoutInflater inflater;
-    String[] drawer_menu ;
 
-    public NaviListAdapter(Context paramContext, List<BindData> paramList)
+    int reource;
+
+    public NaviListAdapter(Context paramContext,int resourceId, List<BindData> paramList)
     {
-        super(paramContext, 0, paramList);
+        super(paramContext, resourceId, paramList);
         this.inflater = ((LayoutInflater)paramContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        drawer_menu = getContext().getResources().getStringArray(R.array.drawer_menu);
-        for ( int i = 0 ; i< paramList.size();i++) {
-            ((BindData)paramList.get(i)).text = drawer_menu[i];
-        }
+        reource = resourceId;
+        //drawer_menu = getContext().getResources().getStringArray(R.array.drawer_menu);
+//        for ( int i = 0 ; i< paramList.size();i++) {
+//            ((BindData)paramList.get(i)).text = drawer_menu[i];
+//        }
     }
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup)
     {
+        LinearLayout listview ;
         if (paramView == null)
         {
-            paramView = this.inflater.inflate(R.layout.listnaviitem, paramViewGroup, false);
+            listview = new LinearLayout(getContext());
+            this.inflater.inflate(reource, listview, true);
             //paramViewGroup.imageView = ((ImageView)paramView.findViewById(R));
 
+        }else {
+            listview = (LinearLayout)paramView;
         }
 
         BindData localBindData = (BindData)getItem(paramInt);
 
-        TextView naviText = (TextView)paramView.findViewById(R.id.listitem);
+        TextView naviText = (TextView)listview.findViewById(R.id.listitem);
         naviText.setText(localBindData.text);
         //paramView.setTag(paramViewGroup);
 
 
         //paramViewGroup.imageView.setImageResource(localBindData.imageId);
         //paramViewGroup.textView.setText(localBindData.text);
-        return paramView;
+        return listview;
 
 
     }

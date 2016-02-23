@@ -31,6 +31,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     protected int viaCount = 0;
@@ -42,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initActionBar();
-
         initDrawer();
-
-        initDrawerList();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         for (int i = 0; i < 3; i++)
@@ -155,48 +158,70 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initActionBar(){
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-    }
-
     private void initDrawer(){
 
+         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         //getSupportActionBar().setHomeButtonEnabled(true);
 
-        layDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        lstDrawer = (ListView) findViewById(R.id.left_drawer);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        String[] drawer_menu = this.getResources().getStringArray(R.array.drawer_menu);
+        List<NaviListAdapter.BindData> dataList = new ArrayList<NaviListAdapter.BindData>();
+        for(int i =0 ; i < drawer_menu.length;i++) {
+            NaviListAdapter.BindData tmpData = new NaviListAdapter.BindData(0,drawer_menu[i]);
+            dataList.add(tmpData);
+        }
+
+
+        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawerLayout.setDrawerTitle(GravityCompat.START,"Drawer Title");
+
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+        //        android.R.layout.simple_expandable_list_item_1, drawer_menu));
+
+        mDrawerList.setAdapter(new NaviListAdapter(this,R.layout.listnaviitem,dataList));
+
+        //layDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //lstDrawer = (ListView) findViewById(R.id.left_drawer);
+
+        //NaviListAdapter adapter = new NaviListAdapter(this, null);
+        //lstDrawer.setAdapter(adapter);
 
        // layDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        mTitle = mDrawerTitle = getTitle();
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                layDrawer,
-                //R.mipmap.ic_drawer,
-                R.string.drawer_open,
-                R.string.drawer_close) {
-
-            @Override
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getActionBar().setTitle(mTitle);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getActionBar().setTitle(mDrawerTitle);
-            }
-        };
-        drawerToggle.syncState();
-
-        layDrawer.setDrawerListener(drawerToggle);
+//        mTitle = mDrawerTitle = getTitle();
+//        drawerToggle = new ActionBarDrawerToggle(
+//                this,
+//                layDrawer,
+//                //R.mipmap.ic_drawer,
+//                R.string.drawer_open,
+//                R.string.drawer_close) {
+//
+//            @Override
+//            public void onDrawerClosed(View view) {
+//                super.onDrawerClosed(view);
+//                getSupportActionBar().setTitle(mTitle);
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//                getSupportActionBar().setTitle(mDrawerTitle);
+//            }
+//        };
+//        drawerToggle.syncState();
+//
+//        layDrawer.setDrawerListener(drawerToggle);
     }
 
     private void initDrawerList(){
         //String[] drawer_menu = this.getResources().getStringArray(R.array.drawer_menu);
-        NaviListAdapter adapter = new NaviListAdapter(this, null);
-        lstDrawer.setAdapter(adapter);
+
     }
 //    OnClickListener addViaBtnClick = new OnClickListener() {
 //        @Override
