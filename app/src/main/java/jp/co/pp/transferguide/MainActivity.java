@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         initDrawer();
 
+        toolbarSet();
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         for (int i = 0; i < 3; i++)
             tabLayout.addTab(tabLayout.newTab().setText("选项卡" + i));
@@ -163,9 +165,6 @@ public class MainActivity extends AppCompatActivity {
          //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
          //getSupportActionBar().setHomeButtonEnabled(true);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
         String[] drawer_menu = this.getResources().getStringArray(R.array.drawer_menu);
         List<NaviListAdapter.BindData> dataList = new ArrayList<NaviListAdapter.BindData>();
         for(int i =0 ; i < drawer_menu.length;i++) {
@@ -184,44 +183,43 @@ public class MainActivity extends AppCompatActivity {
         //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
         //        android.R.layout.simple_expandable_list_item_1, drawer_menu));
 
-        mDrawerList.setAdapter(new NaviListAdapter(this,R.layout.listnaviitem,dataList));
+        mDrawerList.setAdapter(new NaviListAdapter(this, R.layout.listnaviitem, dataList));
 
-        //layDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //lstDrawer = (ListView) findViewById(R.id.left_drawer);
 
-        //NaviListAdapter adapter = new NaviListAdapter(this, null);
-        //lstDrawer.setAdapter(adapter);
-
-       // layDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
-//        mTitle = mDrawerTitle = getTitle();
-//        drawerToggle = new ActionBarDrawerToggle(
-//                this,
-//                layDrawer,
-//                //R.mipmap.ic_drawer,
-//                R.string.drawer_open,
-//                R.string.drawer_close) {
-//
-//            @Override
-//            public void onDrawerClosed(View view) {
-//                super.onDrawerClosed(view);
-//                getSupportActionBar().setTitle(mTitle);
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//                getSupportActionBar().setTitle(mDrawerTitle);
-//            }
-//        };
-//        drawerToggle.syncState();
-//
-//        layDrawer.setDrawerListener(drawerToggle);
     }
 
-    private void initDrawerList(){
-        //String[] drawer_menu = this.getResources().getStringArray(R.array.drawer_menu);
+    private void toolbarSet(){
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+       // Set an OnMenuItemClickListener to handle menu item clicks
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle the menu item
+                return true;
+            }
+        });
+// Inflate a menu to be displayed in the toolbar
 
+        toolbar.inflateMenu(R.menu.menu_main);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        //把toolbar和drawerlayout连起来
+        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        mActionBarDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
     }
 //    OnClickListener addViaBtnClick = new OnClickListener() {
 //        @Override

@@ -6,12 +6,22 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusableInTouchMode="true">
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="jp.co.pp.transferguide.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/title"
+        app:titleTextColor="@color/white"
+        android:background="#337dfb" />
 
     <include layout="@layout/content_main" />
 
@@ -23,9 +33,9 @@
         app:tabIndicatorColor="#ef5350"
         app:tabSelectedTextColor="#1976d2"
         app:tabTextColor="#90caf9"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         app:layout_scrollFlags="scroll|enterAlways"/>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
 
     <ListView android:id="@+id/left_drawer"
         android:layout_width="240dp"
