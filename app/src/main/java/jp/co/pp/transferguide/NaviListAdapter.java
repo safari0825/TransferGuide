@@ -32,17 +32,16 @@ public class NaviListAdapter extends ArrayAdapter<NaviListAdapter.BindData> {
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup)
     {
-        LinearLayout listview ;
-        if (paramView == null)
+        View listview = paramView;
+
+        if (listview == null)
         {
-            listview = new LinearLayout(getContext());
-            this.inflater.inflate(reource, listview, true);
+            //listview = new LinearLayout(getContext());
+            //this.inflater.inflate(reource, listview, true);
+           listview =  LayoutInflater.from(getContext()).inflate(R.layout.listnaviitem,paramViewGroup,false);
             //paramViewGroup.imageView = ((ImageView)paramView.findViewById(R));
 
-        }else {
-            listview = (LinearLayout)paramView;
         }
-
         BindData localBindData = (BindData)getItem(paramInt);
 
         TextView naviText = (TextView)listview.findViewById(R.id.listitem);

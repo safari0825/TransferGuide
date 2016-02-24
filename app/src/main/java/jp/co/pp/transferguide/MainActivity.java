@@ -211,11 +211,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-
+                getSupportActionBar().setTitle("请选择");
+                invalidateOptionsMenu();
             }
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+                getSupportActionBar().setTitle(R.string.title);
+                invalidateOptionsMenu();
             }
         };
         mActionBarDrawerToggle.syncState();

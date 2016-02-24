@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@color/gray" android:layout_width="fill_parent" android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/design_navigation_view">
+<LinearLayout
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="#1976d2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/design_navigation_view">
     <!--<ImageView android:id="@id/imageView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_marginStart="8.0dip" />-->
-    <TextView android:textAppearance="?android:textAppearanceMedium" android:textColor="@color/black"
-        android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginStart="8.0dip"
-        android:id="@+id/listitem" android:minHeight="?android:attr/listPreferredItemHeight"/>
+    <TextView
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/whitesmoke"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8.0dip"
+        android:id="@+id/listitem"
+        android:minHeight="?android:attr/listPreferredItemHeight"/>
 </LinearLayout>
