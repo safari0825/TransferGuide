@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=360px, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #divBlock {
+            width: 360px;
+            height: 567px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+        }
+
+        #divPhoto {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        #divList {
+            position: absolute;
+            left: 0px;
+            top: 495px;
+        }
+
+        #divNone {
+            position: absolute;
+            left: 0px;
+            top: 547px;
+            width: 360px;
+            height: 20px;
+            background-color: White;
+        }
+    </style>
+    <script type="text/javascript" src="http://www.panoramio.com/wapi/wapi.js?v=1"></script>
+    <script type="text/javascript">
+        var myPhotoWidget = null;
+        var myListWidget = null;
+
+        function queryString(key) {
+            return (document.location.search.match(new RegExp("(?:^\\?|&)" + key + "=(.*?)(?=&|$)")) || ['', null])[1];
+        }
+
+        function isEmpty(obj) {
+            if (obj == undefined || obj == null || obj == "") return true;
+            else return false;
+        }
+
+        function requestAroundLatLong(lat, lng, km) {
+            // angle per km = 360 / (2 * pi * 6378) = 0.0089833458
+            var angle = km * 0.0089833458;
+            var myRequest = new panoramio.PhotoRequest({ 'rect': { 'sw': { 'lat': lat - angle, 'lng': lng - angle }, 'ne': { 'lat': lat + angle, 'lng': lng + angle } } });
+            return myRequest;
+        }
+
+        function photoClicked(event) {
+            var curPosition = myPhotoWidget.getPosition();
+            myPhotoWidget.setPosition(curPosition + 1);
+        }
+
+        function listClicked(event) {
+            var position = event.getPosition();
+            if (position !== null) myPhotoWidget.setPosition(position);
+        }
+
+        function onLoad() {
+            var theRequest = null;
+            var tagName = queryString("tag");
+            var lat = queryString("lat");
+            var lng = queryString("lng");
+            if (isEmpty(tagName) == false) {
+                theRequest = new panoramio.PhotoRequest({ "tag": tagName });
+            } else if (isEmpty(lat) == false && isEmpty(lng) == false) {
+                theRequest = requestAroundLatLong(parseFloat(lat), parseFloat(lng), 0.6);
+            } else {
+                theRequest = new panoramio.PhotoRequest({ "tag": "china" });
+            }
+            var photoOptions = { "width": 360, "height": 515, "croppedPhotos": panoramio.Cropping.TO_FILL, "disableDefaultEvents": [panoramio.events.EventType.PHOTO_CLICKED] };
+            myPhotoWidget = new panoramio.PhotoWidget("divPhoto", theRequest, photoOptions);
+            myPhotoWidget.setPosition(0);
+            //panoramio.events.listen(myPhotoWidget, panoramio.events.EventType.PHOTO_CLICKED, photoClicked);
+            myPhotoWidget.enableNextArrow(false);
+            myPhotoWidget.enablePreviousArrow(false);
+            var listOptions = { "width": 360, "height": 72, "croppedPhotos": true, "columns": 5, "rows": 1, "orientation": panoramio.PhotoListWidgetOptions.Orientation.HORIZONTAL, "disableDefaultEvents": [panoramio.events.EventType.PHOTO_CLICKED] };
+            myListWidget = new panoramio.PhotoListWidget("divList", theRequest, listOptions);
+            myListWidget.setPosition(0);
+            panoramio.events.listen(myListWidget, panoramio.events.EventType.PHOTO_CLICKED, listClicked);
+            myListWidget.enableNextArrow(true);
+            myListWidget.enablePreviousArrow(true);
+        }
+    </script>
+</head>
+<body onload="onLoad()">
+    <div id="divBlock">
+        <div id="divPhoto"></div>
+        <div id="divList"></div>
+        <div id="divNone"></div>
+    </div>
+</body>
+</html>
