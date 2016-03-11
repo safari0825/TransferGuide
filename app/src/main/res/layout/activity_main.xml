@@ -23,18 +23,25 @@
         app:titleTextColor="@color/white"
         android:background="#1976d2" />
 
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#e0e0e0"
-        app:tabIndicatorColor="#ef5350"
-        app:tabSelectedTextColor="#1976d2"
-        app:tabTextColor="#90caf9"
-        android:layout_alignParentBottom="true"
-        app:layout_scrollFlags="scroll|enterAlways"/>
+        android:layout_height="match_parent"
+        android:id="@+id/content"
+        android:layout_below="@+id/toolbar1">
+    </FrameLayout>
+    <!--<include layout="@layout/content_main" />-->
+
+
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tabLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="#e0e0e0"-->
+        <!--app:tabIndicatorColor="#ef5350"-->
+        <!--app:tabSelectedTextColor="#1976d2"-->
+        <!--app:tabTextColor="#90caf9"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:layout_scrollFlags="scroll|enterAlways"/>-->
 </RelativeLayout>
 
 
@@ -48,4 +55,4 @@
         android:background="@color/white"
         android:layout_marginTop="?attr/actionBarSize"
         />
-    </android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout>

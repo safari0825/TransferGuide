@@ -1,11 +1,16 @@
 package jp.co.pp.transferguide;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +24,7 @@ import android.view.MenuItem;
 import android.app.Activity;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View.OnClickListener;
@@ -46,23 +52,39 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mTitle;
 
     private String[] mPlanetTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    public DrawerLayout mDrawerLayout;
+    public ListView mDrawerList;
+    public NaviListAdapter mDrawerAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private FragmentManager fragmentManager;
 
-        initDrawer();
+    private TransferFragment transferFragment;
 
-        toolbarSet();
+    private String contentTitle = "";
 
+    private void setTab() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         for (int i = 0; i < 3; i++)
             tabLayout.addTab(tabLayout.newTab().setText("选项卡" + i));
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+    }
 
+    private void initContentFragment() {
+        fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (transferFragment == null) {
+            // 如果TransferFragment为空，则创建一个并添加到界面上
+            transferFragment = new TransferFragment();
+            transaction.add(R.id.content, transferFragment);
+        } else {
+            // 如果TransferFragment不为空，则直接将它显示出来
+            //transaction.show(transferFragment);
+            transaction.replace(R.id.content, transferFragment);
+        }
+        transaction.commit();
+    }
+
+    private  void setTransferFragment() {
         final Button srchButton = (Button) findViewById(R.id.srchButton);
         final EditText text1 = (EditText)findViewById(R.id.startInput);
         final EditText text2 = (EditText)findViewById(R.id.arriveInput);
@@ -76,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         reverseBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tmp = text1.getText().toString() ;
+                String tmp = text1.getText().toString();
                 text1.setText(text2.getText());
                 text2.setText(tmp);
             }
@@ -93,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
                 if (viaCount == 2) {
                     txtVia.setVisibility(View.GONE);
                 }
-                for(int i = 0; i <= viaCount;i++) {
-                    LinearLayout delLine = (LinearLayout)findViewById(10 + i);
+                for (int i = 0; i <= viaCount; i++) {
+                    LinearLayout delLine = (LinearLayout) findViewById(10 + i);
                     g1.removeView(delLine);
                 }
-                for (int i = 0 ; i <= viaCount;i++) {
+                for (int i = 0; i <= viaCount; i++) {
                     TextView viaTitle = new TextView(MainActivity.this);
                     viaTitle.setText(getApplication().getString(R.string.via) + (i + 1));
                     viaTitle.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -117,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             int clickLineIdx = v.getId();
-                            LinearLayout delLine = (LinearLayout) findViewById(10 + clickLineIdx );
+                            LinearLayout delLine = (LinearLayout) findViewById(10 + clickLineIdx);
                             g1.removeView(delLine);
 //                            for ( int i = clickLineIdx ; i < viaCount - 1; i++) {
 //                                LinearLayout nextLine = (LinearLayout) findViewById(10 + (i + 1));
@@ -133,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
                     LinearLayout line1Via = new LinearLayout(MainActivity.this);
                     line1Via.setLayoutParams(new LinearLayout.LayoutParams(50, LinearLayout.LayoutParams.MATCH_PARENT));
-                    line1Via.setId(10+i);
+                    line1Via.setId(10 + i);
                     line1Via.addView(viaTitle);
                     line1Via.addView(viaInput);
                     line1Via.addView(delBtn);
@@ -148,16 +170,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        srchButton.setOnClickListener(new OnClickListener(){
+        srchButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Text1:" + text1.getText() ,Toast.LENGTH_LONG).show();
-                Toast.makeText(MainActivity.this,"Text2:" + text2.getText() ,Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Text1:" + text1.getText(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Text2:" + text2.getText(), Toast.LENGTH_LONG).show();
 
-                Intent toRlstInt = new Intent(getApplicationContext(),SrchResultActivity.class);
+                Intent toRlstInt = new Intent(getApplicationContext(), SrchResultActivity.class);
                 startActivityForResult(toRlstInt,0);
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initDrawer();
+
+        toolbarSet();
+
+        //setTab();
+
+        initContentFragment();
+
+        //setTransferFragment();
+
     }
 
     private void initDrawer(){
@@ -183,9 +222,41 @@ public class MainActivity extends AppCompatActivity {
         //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
         //        android.R.layout.simple_expandable_list_item_1, drawer_menu));
 
+
+        mDrawerAdapter = new NaviListAdapter(this, R.layout.listnaviitem, dataList);
         mDrawerList.setAdapter(new NaviListAdapter(this, R.layout.listnaviitem, dataList));
 
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
 
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view , int position, long id) {
+            selectItem(position);
+        }
+
+        public void selectItem(int position) {
+
+            switch (position) {
+                case 0:
+                    initContentFragment();
+                    break;
+                case 2:
+                    StationFragment stationFragment = new StationFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.content, stationFragment).commit();
+                    break;
+                default:
+                    break;
+            }
+
+            mDrawerList.setItemChecked(position, true);
+            mDrawerLayout.closeDrawer(mDrawerList);
+            contentTitle = mDrawerAdapter.getItem(position).text;
+        }
     }
 
     private void toolbarSet(){
@@ -217,7 +288,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                getSupportActionBar().setTitle(R.string.title);
+
+                if(contentTitle.isEmpty()) {
+                    getSupportActionBar().setTitle(R.string.title);
+                }else {
+                    getSupportActionBar().setTitle(contentTitle);
+                }
                 invalidateOptionsMenu();
             }
         };
