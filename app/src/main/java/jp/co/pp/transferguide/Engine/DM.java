@@ -30,8 +30,8 @@ public class DM {
 //    public static List<Transfer> transferToList;
 //    public static List<SrcUNO> unoList;
 //    public static List<Way> wayList;
-    private static List<Timetable> weekdayList;
-    private static List<Timetable> weekendList;
+    public static List<Timetable> weekdayList;
+    public static List<Timetable> weekendList;
 
 //    public static List<TransferLink> getArrTransferLinks(int paramInt) {
 //        ArrayList localArrayList = new ArrayList();

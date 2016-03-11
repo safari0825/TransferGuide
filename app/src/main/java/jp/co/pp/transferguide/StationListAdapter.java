@@ -1,6 +1,7 @@
 package jp.co.pp.transferguide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
@@ -69,11 +70,26 @@ public class StationListAdapter extends BaseExpandableListAdapter {
         if (convertView != null) {
             myText = (TextView)convertView;
             myText.setText(lineList.get(groupPosition));
+
         } else {
             myText = createView(lineList.get(groupPosition));
             myText.setBackgroundColor(Color.GRAY);
         }
         return myText;
+    }
+
+    private class OnStationClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent toTimeTab = new Intent(context,TimetableActivity.class);
+
+            toTimeTab.putExtra("PK_STATION_NAME", ((TextView)v).getText());
+            toTimeTab.putExtra("PK_LINE_NAME","京葉線");
+
+            //指定迁移先画面---时刻表Activity
+            context.startActivity(toTimeTab);
+        }
     }
 
     private TextView createView(String content) {
@@ -98,6 +114,7 @@ public class StationListAdapter extends BaseExpandableListAdapter {
             myText = createView(stationList.get(groupPosition).get(childPosition));
             myText.setBackgroundColor(Color.WHITE);
         }
+        myText.setOnClickListener(new OnStationClickListener());
         return myText;
     }
 

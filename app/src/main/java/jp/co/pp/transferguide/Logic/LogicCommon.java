@@ -218,6 +218,30 @@ public class LogicCommon {
         return stalist;
     }
 
+    public static Timetable getTimeTable(String staname,String linename) {
+
+
+        ArrayList<Station> staList = (ArrayList)getStation(staname);
+
+        Timetable tmpTimetable = null;
+        Iterator localSta = staList.iterator();
+        while (localSta.hasNext()) {
+
+            Station tmpSta = (Station)localSta.next();
+            if(tmpSta.lineName.equals(linename)) {
+                Iterator localTime = DM.weekdayList.iterator();
+                while (localTime.hasNext()) {
+                    tmpTimetable = (Timetable)localTime.next();
+                    if(tmpTimetable.lineId.equals(tmpSta.lineId) && tmpTimetable.stationId.equals(tmpSta.stationId)){
+                        break;
+                    }
+                }
+            }
+        }
+
+        return tmpTimetable;
+    }
+
 //    public static String getStationLang(int paramInt) {
 //        return getUnoLang(DM.getStation(paramInt).uno);
 //    }
