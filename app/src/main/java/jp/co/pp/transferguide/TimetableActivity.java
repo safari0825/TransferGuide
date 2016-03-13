@@ -35,16 +35,23 @@ public class TimetableActivity extends Activity {
         String preHour = "";
         while (depTimeIta.hasNext()) {
             String depTime = (String)depTimeIta.next();
+            if(depTime.isEmpty()) continue;
             String curHour = depTime.substring(0,depTime.indexOf(":"));
-            if(preHour.isEmpty() || !curHour.equals(preHour)) {
-                perHourList.add(depTime);
-                adapter.timeList.add(perHourList);
-                preHour = curHour;
-                perHourList = new ArrayList();
+            if(!preHour.isEmpty()) {
+                if(!curHour.equals(preHour)) {
+                    adapter.timeList.add(perHourList);
+                    perHourList = new ArrayList();
+                    perHourList.add(depTime);
+                    preHour = curHour;
+                }else {
+                    perHourList.add(depTime);
+                    preHour = curHour;
+                }
             }else {
                 perHourList.add(depTime);
                 preHour = curHour;
             }
+
         }
 
         this.listView.setAdapter(adapter);
