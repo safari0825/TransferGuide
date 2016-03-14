@@ -243,6 +243,12 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     initContentFragment();
                     break;
+                case 1:
+                    RouteMapFragment routeFragment = new RouteMapFragment();
+                    FragmentManager fragmentManager1 = getFragmentManager();
+                    FragmentTransaction transaction1 = fragmentManager1.beginTransaction();
+                    transaction1.replace(R.id.content, routeFragment).commit();
+                    break;
                 case 2:
                     StationFragment stationFragment = new StationFragment();
                     FragmentManager fragmentManager = getFragmentManager();
