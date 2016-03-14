@@ -37,6 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.MapFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -254,6 +256,12 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     transaction.replace(R.id.content, stationFragment).commit();
+                    break;
+                case 3:
+                    MapsFragment mapFragment = new MapsFragment(getApplicationContext());
+                    FragmentManager fragmentManager3 = getFragmentManager();
+                    FragmentTransaction transaction3 = fragmentManager3.beginTransaction();
+                    transaction3.replace(R.id.content, mapFragment).commit();
                     break;
                 default:
                     break;
