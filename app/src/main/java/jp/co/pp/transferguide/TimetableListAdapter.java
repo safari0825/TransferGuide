@@ -59,6 +59,7 @@ public class TimetableListAdapter extends BaseAdapter {
         hour.setBackgroundColor(Color.GRAY);
         itemView.addView(hour);
 
+        //position : hour
         int minCnt = timeList.get(position).size();
         int minLineCnt = minCnt / 10 + 1;
         for (int i = 0 ; i < minLineCnt ; i++) {
@@ -71,7 +72,8 @@ public class TimetableListAdapter extends BaseAdapter {
             min.setPadding(80, 0, 0, 0);
 
             String timeStr = "";
-            for (int j = i * 10; j < minCnt; j ++ ) {
+            for (int j = i * 10; j < i * 10 + 10; j ++ ) {
+                if(j >= minCnt) break;
                 String time1 = timeList.get(position).get(j);
                 String minStr = time1.substring(time.indexOf(":") + 1);
                 timeStr +=  minStr + " ";

@@ -933,7 +933,7 @@ public class DM {
             tmpTb.dateType = "WD";
             String timeList = "";
             for ( int j =  7; j < strTmp.length;j++) {
-                if(strTmp[j].trim().isEmpty() || strTmp[j].trim().equals("||")) {
+                if(strTmp[j].trim().isEmpty() || strTmp[j].trim().equals("||") || strTmp[j].trim().equals("レ")) {
                     continue;
                 }else {
                     timeList += strTmp[j] + ",";
