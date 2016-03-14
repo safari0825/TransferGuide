@@ -14,14 +14,14 @@
     tools:context="jp.co.pp.transferguide.MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar1"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="@string/title"
-        app:titleTextColor="@color/white"
-        android:background="#1976d2" />
+    android:id="@+id/toolbar1"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    app:layout_collapseMode="pin"
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    app:title="@string/title"
+    app:titleTextColor="@color/white"
+    android:background="#1976d2" />
 
     <FrameLayout
         android:layout_width="match_parent"
