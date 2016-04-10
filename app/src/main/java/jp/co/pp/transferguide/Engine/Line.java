@@ -16,8 +16,6 @@ public class Line {
 
     public String endStationId = "";
 
-    public String direction = "";
-
     public String speedType = "";
 
     public List<String> stationIDList;

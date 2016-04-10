@@ -7,10 +7,4 @@ public class Station {
     public String stationNamePY = "";
 
     public String stationNameCN = "";
-
-    public String lineId = "";
-
-    public String lineName = "";
-
-    public Station() {}
 }
