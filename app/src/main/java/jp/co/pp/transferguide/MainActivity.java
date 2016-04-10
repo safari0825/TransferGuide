@@ -37,6 +37,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.MapFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -243,11 +245,23 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     initContentFragment();
                     break;
+                case 1:
+                    RouteMapFragment routeFragment = new RouteMapFragment();
+                    FragmentManager fragmentManager1 = getFragmentManager();
+                    FragmentTransaction transaction1 = fragmentManager1.beginTransaction();
+                    transaction1.replace(R.id.content, routeFragment).commit();
+                    break;
                 case 2:
                     StationFragment stationFragment = new StationFragment();
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     transaction.replace(R.id.content, stationFragment).commit();
+                    break;
+                case 3:
+                    MapsFragment mapFragment = new MapsFragment(getApplicationContext());
+                    FragmentManager fragmentManager3 = getFragmentManager();
+                    FragmentTransaction transaction3 = fragmentManager3.beginTransaction();
+                    transaction3.replace(R.id.content, mapFragment).commit();
                     break;
                 default:
                     break;

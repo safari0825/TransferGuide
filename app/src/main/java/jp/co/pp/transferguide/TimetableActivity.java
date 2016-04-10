@@ -2,6 +2,8 @@ package jp.co.pp.transferguide;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -13,7 +15,7 @@ import java.util.List;
 import jp.co.pp.transferguide.Engine.Timetable;
 import jp.co.pp.transferguide.Logic.LogicCommon;
 
-public class TimetableActivity extends Activity {
+public class TimetableActivity extends AppCompatActivity {
 
     private ListView listView;
 
@@ -75,10 +77,28 @@ public class TimetableActivity extends Activity {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_timetable);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_time);
+        // Set an OnMenuItemClickListener to handle menu item clicks
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle the menu item
+                return true;
+            }
+        });
+// Inflate a menu to be displayed in the toolbar
+
+        toolbar.inflateMenu(R.menu.menu_main);
+        setSupportActionBar(toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         this.stationName = getIntent().getStringExtra("PK_STATION_NAME");
         this.lineName = getIntent().getStringExtra("PK_LINE_NAME");
 
+        getSupportActionBar().setTitle(this.stationName);
         this.listView = (ListView) findViewById(R.id.timeTblListView);
         refreshData();
     }
