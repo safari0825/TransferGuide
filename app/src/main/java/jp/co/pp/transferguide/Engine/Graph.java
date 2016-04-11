@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Graph {
 
-    public class Node implements Comparator{
+    public class Node{
 
         public String wayId = "";
 
@@ -35,8 +35,35 @@ public class Graph {
         }
 
         @Override
-        public int compare(Object lhs, Object rhs) {
-            return Integer.compare(((Node)lhs).time,((Node)rhs).time);
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((wayId == null) ? 0 : wayId.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Node other = (Node) obj;
+            if (wayId == null) {
+                if (other.wayId != null)
+                    return false;
+            } else if (!wayId.equals(other.wayId))
+                return false;
+
+            if (stationId == null) {
+                if (other.stationId != null)
+                    return false;
+            } else if (!stationId.equals(other.stationId))
+                return false;
+
+            return true;
         }
     };
 
@@ -74,11 +101,11 @@ public class Graph {
 
     public List<Edge> edgeList;
 
-    public Graph() {
+    public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges) {
 
-        nodeList = new ArrayList<Node>();
+        this.nodeList = nodes;
 
-        edgeList = new ArrayList<Edge>();
+        this.edgeList = edges;
     }
 
     public void addNode(Node node) {
@@ -90,14 +117,4 @@ public class Graph {
         edge.to.neighboursList.add(edge.from);
         edgeList.add(edge);
     }
-
-
-    public void findShortestPath(Node start, Node end,int startTime) {
-
-        start.visited = true;
-
-
-
-    }
-
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import jp.co.pp.transferguide.util.FileUtil;
@@ -32,6 +33,24 @@ public class DM {
 //    public static List<Way> wayList;
     public static List<Timetable> weekdayList;
     public static List<Timetable> weekendList;
+
+    public static LinkedList<Graph.Node> path ;
+
+    public static void getPath(Graph.Node start, Graph.Node end) {
+
+        //get node info and add node to graph
+        ArrayList<Graph.Node> nodes = new ArrayList<Graph.Node>();
+
+
+        //get edge info and add edge to grash
+        ArrayList<Graph.Edge> edges = new ArrayList<Graph.Edge>();
+
+        //get the shortest path
+        Graph graph = new Graph(nodes, edges);
+        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
+        dijkstra.execute(start);
+        LinkedList<Graph.Node> path = dijkstra.getPath(end);
+    }
 
 //    public static List<TransferLink> getArrTransferLinks(int paramInt) {
 //        ArrayList localArrayList = new ArrayList();
