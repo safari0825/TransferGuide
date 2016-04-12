@@ -124,4 +124,19 @@ public class DM {
             wayMap.put(Integer.toString(tmpWay.id),tmpWay);
         }
     }
+
+
+    private static void loadTimeTable() {
+        if (weekdayList == null) {
+            weekdayList = new ArrayList<Timetable>();
+        }
+
+        String[] arrayOfString = getCsv("timetable");
+
+        for(int i = 0 ; i < arrayOfString.length;i++) {
+            //
+            Way tmpWay = new Way(i,arrayOfString[i]);
+            wayMap.put(Integer.toString(tmpWay.id),tmpWay);
+        }
+    }
 }
