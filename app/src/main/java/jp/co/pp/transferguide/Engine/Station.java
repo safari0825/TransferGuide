@@ -7,4 +7,6 @@ public class Station {
     public String stationNamePY = "";
 
     public String stationNameCN = "";
+
+    public String lineName = "";
 }

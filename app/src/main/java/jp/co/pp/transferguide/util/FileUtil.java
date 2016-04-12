@@ -64,13 +64,13 @@ public class FileUtil {
 
     /**
      * ??刻表文件内容
-     * @param subFolder
+     * @param dataName
      * @return
      */
-    public static String GetFileString(String subFolder) {
+    public static String GetFileString(String dataName) {
 
         //
-        ArrayList<String> filePathArr = GetPathData(subFolder);
+        ArrayList<String> filePathArr = GetPathData(dataName);
         StringBuilder strBuilder = new StringBuilder();
         for ( int i = 0 ;  i < filePathArr.size();i++) {
             try {
@@ -89,6 +89,9 @@ public class FileUtil {
         }
         return strBuilder.toString();
     }
+
+
+
 
     /**
      * ?刻表数据文件的路径取得
@@ -112,9 +115,8 @@ public class FileUtil {
         }
 
         ArrayList<String> rtnStr = new ArrayList<String>();
-        File tmpFile = new File(str2+str1);
         try {
-            String[] pathList = ((Context) context).getAssets().list(str2 + str1);
+            String[] pathList = ((Context) context).getAssets().list(str2 + str1+".csv");
             for (int i = 0; i < pathList.length; i++) {
                     rtnStr.add(str2+str1+"/"+pathList[i]);
 

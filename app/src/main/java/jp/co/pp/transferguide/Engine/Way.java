@@ -10,6 +10,7 @@ public class Way {
 
     public int id;
     public int lineID;
+    public String wayName = "";
     public List<String> stationIDList;
 
     public Way(int paramInt, String paramString)
@@ -17,8 +18,9 @@ public class Way {
         String[] paramStrArr = paramString.split(",", -1);
         this.id = paramInt;
         this.lineID = Integer.parseInt(paramStrArr[0]);
-        this.stationIDList = new ArrayList(paramStrArr.length - 1);
-        paramInt = 1;
+        this.wayName = paramStrArr[1];
+        this.stationIDList = new ArrayList(paramStrArr.length - 2);
+        paramInt = 2;
         while (paramInt < paramStrArr.length)
         {
             this.stationIDList.add(paramStrArr[paramInt]);

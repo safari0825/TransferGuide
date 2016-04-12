@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Timetable {
-    public String lineId = "";
+    public String wayId = "";
     public String stationId = "";
     public String dateType  = "";
     public List<String> depTime ;

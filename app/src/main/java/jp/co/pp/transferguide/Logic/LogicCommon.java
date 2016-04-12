@@ -77,10 +77,12 @@ public class LogicCommon {
 
             Station tmpSta = (Station)localSta.next();
             if(tmpSta.lineName.equals(linename)) {
+
+                //数据初期化时timetable的内容读入到DM.weekdayList中。
                 Iterator localTime = DM.weekdayList.iterator();
                 while (localTime.hasNext()) {
                     tmpTimetable = (Timetable)localTime.next();
-                    if(tmpTimetable.lineId.equals(tmpSta.lineId) && tmpTimetable.stationId.equals(tmpSta.stationId)){
+                    if(tmpTimetable.wayId.equals(tmpSta.wayId) && tmpTimetable.stationId.equals(tmpSta.stationId)){
                         break;
                     }
                 }
