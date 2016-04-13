@@ -8,16 +8,16 @@ import java.util.List;
  */
 public class Way {
 
-    public int id;
-    public int lineID;
+    public String wayId;
+    public String lineID;
     public String wayName = "";
     public List<String> stationIDList;
 
     public Way(int paramInt, String paramString)
     {
         String[] paramStrArr = paramString.split(",", -1);
-        this.id = paramInt;
-        this.lineID = Integer.parseInt(paramStrArr[0]);
+        this.wayId = Integer.toString(paramInt);
+        this.lineID = paramStrArr[0];
         this.wayName = paramStrArr[1];
         this.stationIDList = new ArrayList(paramStrArr.length - 2);
         paramInt = 2;

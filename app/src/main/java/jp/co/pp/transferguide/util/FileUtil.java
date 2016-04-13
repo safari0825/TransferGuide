@@ -116,11 +116,13 @@ public class FileUtil {
 
         ArrayList<String> rtnStr = new ArrayList<String>();
         try {
+            /*
             String[] pathList = ((Context) context).getAssets().list(str2 + str1+".csv");
             for (int i = 0; i < pathList.length; i++) {
                     rtnStr.add(str2+str1+"/"+pathList[i]);
 
-            }
+            }*/
+            rtnStr.add(str2 + str1+".csv");
         }catch (Exception e) {}
         return rtnStr;
     }

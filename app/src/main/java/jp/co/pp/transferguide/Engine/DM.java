@@ -1,5 +1,6 @@
 package jp.co.pp.transferguide.Engine;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class DM {
 //    public static List<String> langNameList;
     public static HashMap<String,Line> lineMap;
 
-    //public static List<Link> linkList;
+    public static List<Link> linkList;
     //public static HashMap<String, String> mainLangList;
     public static HashMap<String,Station> stationMap;
 
@@ -57,16 +58,16 @@ public class DM {
 
     /**
      * get CSV data contance.
-     * @param subFolder
+     * @param dataName
      * @return
      */
     private static String[] getCsv(String dataName) {
-        return FileUtil.GetFileString("nj\\"+dataName).split("\r\n", -1);
+        return FileUtil.GetFileString("nj/"+dataName).split("\r\n", -1);
     }
 
 
 
-    private static void loadStation(String paraStaName) {
+    public static void loadStation() {
         if (stationMap != null) {
             return;
         }else {
@@ -80,12 +81,12 @@ public class DM {
             tmpStation = new Station();
             tmpStation.stationId = Integer.toString(i);
             tmpStation.stationNameCN = arrayOfString[i];
-            stationMap.put(tmpStation.stationId,tmpStation);
+            stationMap.put(tmpStation.stationNameCN,tmpStation);
         }
     }
 
 
-    private static void loadLine() {
+    public static void loadLine() {
         if (lineMap == null) {
             lineMap = new HashMap<String,Line>();
         }
@@ -105,38 +106,116 @@ public class DM {
                 stationList.add(strTmp[j]);
             }
             tmpLine.stationIDList = stationList;
-            lineMap.put(tmpLine.lineId,tmpLine);
+            lineMap.put(tmpLine.lineNameCN,tmpLine);
         }
     }
 
 
 
-    private static void loadWay() {
+    public static void loadWay() {
         if (wayMap == null) {
             wayMap = new HashMap<String,Way>();
         }
-
         String[] arrayOfString = getCsv("way");
 
         for(int i = 0 ; i < arrayOfString.length;i++) {
             //
-            Way tmpWay = new Way(i,arrayOfString[i]);
-            wayMap.put(Integer.toString(tmpWay.id),tmpWay);
+            if(!arrayOfString[i].isEmpty()) {
+                Way tmpWay = new Way(i, arrayOfString[i]);
+                wayMap.put(tmpWay.wayId, tmpWay);
+            }
         }
     }
 
 
-    private static void loadTimeTable() {
+    public static void loadTimeTable() {
         if (weekdayList == null) {
             weekdayList = new ArrayList<Timetable>();
         }
 
         String[] arrayOfString = getCsv("timetable");
 
+        //create TimeTable
         for(int i = 0 ; i < arrayOfString.length;i++) {
+
+            if (arrayOfString[i].isEmpty() ) continue;
+
+            String[] strTmp = arrayOfString[i].split(",");
             //
-            Way tmpWay = new Way(i,arrayOfString[i]);
-            wayMap.put(Integer.toString(tmpWay.id),tmpWay);
+            String wayId = strTmp[0];
+
+            //find all station within the way
+            if (wayMap != null) {
+                Way tempWay = wayMap.get(wayId);
+                for(int j = 0 ; j < tempWay.stationIDList.size();j++) {
+                    Timetable tempTimeTable = new Timetable();
+                    tempTimeTable.wayId = wayId;
+                    tempTimeTable.stationId = tempWay.stationIDList.get(j);
+
+                    //发车时间表的作成
+                    ArrayList depTime = new ArrayList();
+
+                    String firstTime = strTmp[1];
+                    String lastTime = strTmp[2];
+
+                    int timeInt = Integer.parseInt(firstTime.substring(0, 2)) * 60 + Integer.parseInt(firstTime.substring(2,4));
+
+                    int lastTimeInt = Integer.parseInt(lastTime.substring(0,2)) * 60 + Integer.parseInt(lastTime.substring(2,4));
+
+                    if(j > 0 ) {
+                        for ( int k = 0 ; k < j - 1 ;k++) {
+                            timeInt = timeInt + Integer.parseInt(strTmp[3+k]);
+                            lastTimeInt = lastTimeInt + Integer.parseInt(strTmp[3+k]);
+                        }
+                    }
+
+                    while (timeInt < lastTimeInt) {
+                        String timeTmp = timeInt / 60  + ":" + timeInt % 60;
+                        depTime.add(timeTmp);
+
+                        //假设发车间隔时间10分钟
+                        timeInt += 10;
+                    }
+                    weekdayList.add(tempTimeTable);
+                    // 到此为止一个车站的时刻表做好了
+                }
+                //到此为止所有车站的时刻表都做好了。
+            }
+        }
+    }
+
+
+    public static void loadLink() {
+
+        if(linkList == null) {
+            linkList = new ArrayList<Link>();
+        }
+
+        String[] arrayOfString = getCsv("timetable");
+
+        //create TimeTable
+        for(int i = 0 ; i < arrayOfString.length;i++) {
+
+            if (arrayOfString[i].isEmpty() ) continue;
+
+            String[] strTmp = arrayOfString[i].split(",");
+            //
+            String wayId = strTmp[0];
+
+            //find all station within the way
+            if (wayMap != null) {
+                Way tempWay = wayMap.get(wayId);
+                for(int j = 0 ; j < tempWay.stationIDList.size() - 2;j++) {
+                    Link tempLink = new Link();
+                    tempLink.wayID = wayId;
+                    tempLink.fromStationID = tempWay.stationIDList.get(j);
+                    tempLink.toStationID = tempWay.stationIDList.get(j + 1);
+
+                    tempLink.averageTime = Integer.parseInt(strTmp[2 + j]);
+
+                    linkList.add(tempLink);
+                }
+            }
         }
     }
 }

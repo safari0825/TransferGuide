@@ -68,6 +68,7 @@ public class LogicCommon {
 
     public static Timetable getTimeTable(String staname,String linename) {
 
+        String wayId = DM.wayMap.get(linename).wayId;
 
         ArrayList<Station> staList = (ArrayList)getStation(staname);
 
@@ -76,17 +77,17 @@ public class LogicCommon {
         while (localSta.hasNext()) {
 
             Station tmpSta = (Station)localSta.next();
-            if(tmpSta.lineName.equals(linename)) {
+            //if(tmpSta.lineName.equals(linename)) {
 
                 //数据初期化时timetable的内容读入到DM.weekdayList中。
                 Iterator localTime = DM.weekdayList.iterator();
                 while (localTime.hasNext()) {
                     tmpTimetable = (Timetable)localTime.next();
-                    if(tmpTimetable.wayId.equals(tmpSta.wayId) && tmpTimetable.stationId.equals(tmpSta.stationId)){
+                    if(tmpTimetable.wayId.equals(wayId) && tmpTimetable.stationId.equals(tmpSta.stationId)){
                         break;
                     }
                 }
-            }
+            //}
         }
 
         return tmpTimetable;
@@ -102,7 +103,11 @@ public class LogicCommon {
         //DM.loadCity(city);
         //srcLang = getSrcLang(language);
 
-        DM.loadData("");
+        DM.loadStation();
+        DM.loadLine();
+        DM.loadWay();
+        DM.loadTimeTable();
+        DM.loadLink();
     }
 
     public static boolean isDrawerClose(Activity paramActivity) {
