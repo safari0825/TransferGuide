@@ -106,7 +106,7 @@ public class DM {
                 stationList.add(strTmp[j]);
             }
             tmpLine.stationIDList = stationList;
-            lineMap.put(tmpLine.lineNameCN,tmpLine);
+            lineMap.put(tmpLine.lineId,tmpLine);
         }
     }
 

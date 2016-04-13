@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import jp.co.pp.transferguide.Engine.DM;
+import jp.co.pp.transferguide.Engine.Line;
 import jp.co.pp.transferguide.Engine.Station;
 import jp.co.pp.transferguide.Logic.LogicCommon;
 import jp.co.pp.transferguide.util.Util;
@@ -94,6 +95,13 @@ public class StationFragment extends android.app.Fragment implements AdapterView
             String preLineName = "";
             while (staIte.hasNext()) {
                 Station tmpSta = (Station) staIte.next();
+
+                //
+                Line tmpLine = LogicCommon.getLine(tmpSta.stationNameCN);
+                preLineName = tmpLine.lineNameCN;
+
+                //TODO:未完了。
+
                 if (preLineName.equals(tmpSta.lineName)) {
                     //same line
                     tmpStaList.add(tmpSta.stationNameCN);

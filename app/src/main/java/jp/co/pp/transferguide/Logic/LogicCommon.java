@@ -66,6 +66,31 @@ public class LogicCommon {
         return stalist;
     }
 
+
+    public static Line getLine(String staname) {
+
+        Station targetSta = DM.stationMap.get(staname);
+
+        Line rtnLine = null;
+
+        Iterator localline = DM.lineMap.values().iterator();
+
+        while (localline.hasNext()) {
+
+            Line tmpLine  = (Line)localline.next();
+            Iterator localSta = tmpLine.stationIDList.iterator();
+            while (localSta.hasNext()) {
+                Station cmpSta = (Station)localSta.next();
+                if(targetSta.stationId.equals(cmpSta.stationId)) {
+                    rtnLine = tmpLine;
+                    break;
+                }
+            }
+
+        }
+        return rtnLine;
+    }
+
     public static Timetable getTimeTable(String staname,String linename) {
 
         String wayId = DM.wayMap.get(linename).wayId;
