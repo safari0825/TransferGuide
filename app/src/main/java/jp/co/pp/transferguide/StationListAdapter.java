@@ -78,19 +78,6 @@ public class StationListAdapter extends BaseExpandableListAdapter {
         return myText;
     }
 
-    private class OnStationClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Intent toTimeTab = new Intent(context,TimetableActivity.class);
-
-            toTimeTab.putExtra("PK_STATION_NAME", ((TextView)v).getText());
-            toTimeTab.putExtra("PK_LINE_NAME","京葉線");
-
-            //指定迁移先画面---时刻表Activity
-            context.startActivity(toTimeTab);
-        }
-    }
 
     private TextView createView(String content) {
         AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(
@@ -114,12 +101,12 @@ public class StationListAdapter extends BaseExpandableListAdapter {
             myText = createView(stationList.get(groupPosition).get(childPosition));
             myText.setBackgroundColor(Color.WHITE);
         }
-        myText.setOnClickListener(new OnStationClickListener());
+        //myText.setOnClickListener(new OnStationClickListener());
         return myText;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

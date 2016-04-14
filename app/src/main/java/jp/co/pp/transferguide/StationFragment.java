@@ -1,6 +1,7 @@
 package jp.co.pp.transferguide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -98,30 +101,46 @@ public class StationFragment extends android.app.Fragment implements AdapterView
 
                 //
                 Line tmpLine = LogicCommon.getLine(tmpSta.stationNameCN);
-                preLineName = tmpLine.lineNameCN;
+                String tmpLineName = tmpLine.lineNameCN;
 
-                //TODO:未完了。
-
-                if (preLineName.equals(tmpSta.lineName)) {
+                //
+                if (preLineName.equals(tmpLineName)) {
                     //same line
                     tmpStaList.add(tmpSta.stationNameCN);
 
                 } else { // line changed or first data
-                    stationListAdapter.lineList.add(tmpSta.lineName);
+                    stationListAdapter.lineList.add(tmpLineName);
                     if (!preLineName.isEmpty()) {
                         //line changed , should commit line's stationlist
                         tmpStaList = new ArrayList();
                     }
                     tmpStaList.add(tmpSta.stationNameCN);
                     stationListAdapter.stationList.add(tmpStaList);
-                    preLineName = tmpSta.lineName;
+                    preLineName = tmpLineName;
                 }
             }
         }
         this.listView.setAdapter(stationListAdapter);
+        this.listView.setOnChildClickListener(new OnStationClickListener());
     }
 
 
+
+    private class OnStationClickListener implements ExpandableListView.OnChildClickListener {
+
+        @Override
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            Intent toTimeTab = new Intent(getActivity().getBaseContext(),TimetableActivity.class);
+
+            ExpandableListAdapter adapter = parent.getExpandableListAdapter();
+            toTimeTab.putExtra("PK_STATION_NAME", (adapter.getChild(groupPosition,childPosition).toString()));
+            toTimeTab.putExtra("PK_LINE_NAME", adapter.getGroup(groupPosition).toString());
+
+            //指定迁移先画面---时刻表Activity
+            getActivity().startActivity(toTimeTab);
+            return false;
+        }
+    }
 
     public void onActivityCreated(Bundle paramBundle) {
         super.onActivityCreated(paramBundle);

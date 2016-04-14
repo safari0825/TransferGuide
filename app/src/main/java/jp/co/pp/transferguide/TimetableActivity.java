@@ -59,20 +59,6 @@ public class TimetableActivity extends AppCompatActivity {
         this.listView.setAdapter(adapter);
     }
 
-//    private void showDialog() {
-//        String str1 = DM.getL("Weekdays");
-//        String str2 = DM.getL("Holidays");
-//        AlertDialog.Builder localBuilder = Util.getAlert(this, DM.getL("Timetable"));
-//        DialogInterface.OnClickListener local1 = new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
-//                TimetableActivity.access$002(TimetableActivity.this, paramAnonymousInt);
-//                TimetableActivity.this.listView.setAdapter(TimetableActivity.this.getAdapter());
-//                paramAnonymousDialogInterface.dismiss();
-//            }
-//        };
-//        localBuilder.setSingleChoiceItems(new CharSequence[]{str1, str2}, -1, local1).setNegativeButton(DM.getL("Cancel"), null).show();
-//    }
-
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_timetable);
@@ -104,8 +90,6 @@ public class TimetableActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu paramMenu) {
-//        LogicCommon.setActionBar(this, LogicCommon.getStationLang(this.stationID));
-//        LogicCommon.addMenuItem(paramMenu, "Timetable");
         return super.onCreateOptionsMenu(paramMenu);
     }
 
@@ -113,12 +97,6 @@ public class TimetableActivity extends AppCompatActivity {
         if (paramMenuItem.getItemId() == 16908332) {
             finish();
         }
-//        for (; ; ) {
-//            return super.onOptionsItemSelected(paramMenuItem);
-//            if (paramMenuItem.getItemId() == 991) {
-//                showDialog();
-//            }
-//        }
         return super.onOptionsItemSelected(paramMenuItem);
     }
 }

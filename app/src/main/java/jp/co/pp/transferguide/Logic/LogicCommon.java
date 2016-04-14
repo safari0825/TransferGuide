@@ -80,8 +80,8 @@ public class LogicCommon {
             Line tmpLine  = (Line)localline.next();
             Iterator localSta = tmpLine.stationIDList.iterator();
             while (localSta.hasNext()) {
-                Station cmpSta = (Station)localSta.next();
-                if(targetSta.stationId.equals(cmpSta.stationId)) {
+                String cmpSta = (String)localSta.next();
+                if(targetSta.stationId.equals(cmpSta)) {
                     rtnLine = tmpLine;
                     break;
                 }
@@ -91,9 +91,72 @@ public class LogicCommon {
         return rtnLine;
     }
 
-    public static Timetable getTimeTable(String staname,String linename) {
+    public static Way getWay(String wayname) {
 
-        String wayId = DM.wayMap.get(linename).wayId;
+        Way rtnWay = null;
+
+        Iterator localway = DM.wayMap.values().iterator();
+
+        while (localway.hasNext()) {
+
+            Way tmpway  = (Way)localway.next();
+            if(tmpway.wayName.equals(wayname)){
+                rtnWay = tmpway;
+                break;
+            }
+
+        }
+        return rtnWay;
+    }
+
+    public static List<Way> getWayByStation(String staionName) {
+
+        ArrayList<Way> rtnWay = new ArrayList<Way>();
+
+
+        Iterator localstation = getStation(staionName).iterator();
+
+        while (localstation.hasNext()) {
+            Station tmpStation = (Station)localstation.next();
+            Iterator localWay = DM.wayMap.values().iterator();
+            while (localWay.hasNext()) {
+                Way tmpWay = (Way)localWay.next();
+                Iterator localStationList = tmpWay.stationIDList.iterator();
+                while (localStationList.hasNext()) {
+                    String stationId = (String) localStationList.next();
+                    if (stationId.equals(tmpStation.stationId)) {
+                        rtnWay.add(tmpWay);
+                        break;
+                    }
+                }
+            }
+        }
+        return rtnWay;
+    }
+
+    public static Line getLineByName(String linename) {
+
+        Line rtnLine = null;
+
+        Iterator localline = DM.lineMap.values().iterator();
+
+        while (localline.hasNext()) {
+
+            Line tmpline  = (Line)localline.next();
+            if(tmpline.lineNameCN.equals(linename)){
+                rtnLine = tmpline;
+                break;
+            }
+
+        }
+        return rtnLine;
+    }
+
+    public static Timetable getTimeTable(String staname,String wayname) {
+
+
+        //
+        String wayId = getWay(wayname).wayId;
 
         ArrayList<Station> staList = (ArrayList)getStation(staname);
 
