@@ -99,8 +99,22 @@ public class WayListActivity extends AppCompatActivity {
         this.lineNameView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         this.lineNameView.setBackgroundColor(Color.GRAY);
         this.lineNameView.setTextSize(20);
+        this.lineNameView.setText(this.lineName);
 
         this.listView = (ListView) findViewById(R.id.wayListView);
         refreshData();
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu paramMenu) {
+        return super.onCreateOptionsMenu(paramMenu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem paramMenuItem) {
+        if (paramMenuItem.getItemId() == android.R.id.home) {
+            finish();
+            return  true;
+        }
+        return super.onOptionsItemSelected(paramMenuItem);
     }
 }

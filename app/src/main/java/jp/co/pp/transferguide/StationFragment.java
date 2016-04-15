@@ -130,14 +130,14 @@ public class StationFragment extends android.app.Fragment implements AdapterView
 
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent toTimeTab = new Intent(getActivity().getBaseContext(),TimetableActivity.class);
+            Intent toWayList = new Intent(getActivity().getBaseContext(),WayListActivity.class);
 
             ExpandableListAdapter adapter = parent.getExpandableListAdapter();
-            toTimeTab.putExtra("PK_STATION_NAME", (adapter.getChild(groupPosition,childPosition).toString()));
-            toTimeTab.putExtra("PK_LINE_NAME", adapter.getGroup(groupPosition).toString());
+            toWayList.putExtra("PK_STATION_NAME", (adapter.getChild(groupPosition,childPosition).toString()));
+            toWayList.putExtra("PK_LINE_NAME", adapter.getGroup(groupPosition).toString());
 
             //指定迁移先画面---时刻表Activity
-            getActivity().startActivity(toTimeTab);
+            getActivity().startActivity(toWayList);
             return false;
         }
     }

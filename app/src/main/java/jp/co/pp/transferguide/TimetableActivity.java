@@ -21,7 +21,7 @@ public class TimetableActivity extends AppCompatActivity {
 
     private String stationName = "";
 
-    private String lineName = "";
+    private String wayName = "";
 
 
 
@@ -30,7 +30,7 @@ public class TimetableActivity extends AppCompatActivity {
         TimetableListAdapter adapter = new TimetableListAdapter(this);
         adapter.timeList = new ArrayList<List<String>>();
 
-        Timetable timetable = LogicCommon.getTimeTable(this.stationName,this.lineName);
+        Timetable timetable = LogicCommon.getTimeTable(this.stationName,this.wayName);
 
         Iterator depTimeIta = timetable.depTime.iterator();
         ArrayList perHourList = new ArrayList();
@@ -82,7 +82,7 @@ public class TimetableActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         this.stationName = getIntent().getStringExtra("PK_STATION_NAME");
-        this.lineName = getIntent().getStringExtra("PK_LINE_NAME");
+        this.wayName = getIntent().getStringExtra("PK_WAY_NAME");
 
         getSupportActionBar().setTitle(this.stationName);
         this.listView = (ListView) findViewById(R.id.timeTblListView);
@@ -94,8 +94,9 @@ public class TimetableActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem paramMenuItem) {
-        if (paramMenuItem.getItemId() == 16908332) {
+        if (paramMenuItem.getItemId() == android.R.id.home) {
             finish();
+            return true;
         }
         return super.onOptionsItemSelected(paramMenuItem);
     }

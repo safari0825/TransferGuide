@@ -57,6 +57,7 @@ public class WayListAdapter  extends BaseAdapter {
         wayText.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         wayText.setPadding(80, 0, 0, 0);
         wayText.setText(wayList.get(position));
+        wayText.setTextSize(20);
 
         itemView.addView(wayText);
         return itemView;

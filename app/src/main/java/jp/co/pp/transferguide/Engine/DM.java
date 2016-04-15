@@ -174,8 +174,9 @@ public class DM {
                         depTime.add(timeTmp);
 
                         //假设发车间隔时间10分钟
-                        timeInt += 10;
+                        timeInt += 8;
                     }
+                    tempTimeTable.depTime = depTime;
                     weekdayList.add(tempTimeTable);
                     // 到此为止一个车站的时刻表做好了
                 }
