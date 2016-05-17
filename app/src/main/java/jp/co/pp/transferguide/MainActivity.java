@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
     private String contentTitle = "";
 
-    private void setTab() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        for (int i = 0; i < 3; i++)
-            tabLayout.addTab(tabLayout.newTab().setText("选项卡" + i));
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-    }
+//    private void setTab() {
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+//        for (int i = 0; i < 3; i++)
+//            tabLayout.addTab(tabLayout.newTab().setText("选项卡" + i));
+//        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//    }
 
     private void initContentFragment() {
         fragmentManager = getFragmentManager();
