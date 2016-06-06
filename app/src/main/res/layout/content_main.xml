@@ -7,100 +7,63 @@
 	android:orientation="vertical"
 	xmlns:android="http://schemas.android.com/apk/res/android"
     android:weightSum="1">
-<!--<TextView-->
-	<!--android:id="@+id/title1"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="50dp"-->
-	<!--android:background="#ffcccccc"-->
-	<!--android:text="@string/title"-->
-	<!--android:typeface="monospace"-->
-	<!--android:textSize="30dp"-->
-	<!--android:textStyle="bold"-->
-    <!--android:gravity="center_vertical|center_horizontal" />-->
-<LinearLayout
-	android:id="@+id/line1"
-	android:layout_width="match_parent"
-	android:layout_height="50dp"
-	android:paddingTop="0dp">
-<TextView
-	android:id="@+id/start"
-	android:layout_width="wrap_content"
-	android:layout_height="match_parent"
-	android:text="@string/start"
-	android:typeface="monospace"
-	android:textStyle="bold"
-	android:gravity="center_vertical"
-	android:layout_gravity="bottom" />
-<AutoCompleteTextView
-	android:id="@+id/startInput"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_gravity="bottom"
-	android:gravity="center_vertical"/>
-</LinearLayout>
-<GridLayout
-	android:id="@+id/g1"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:rowCount="4"
-	android:columnCount="3"
-	android:padding="0dp">
-	<TextView
-		android:id="@+id/via"
-		android:layout_height="50dp"
-		android:layout_width="50dp"
-		android:gravity="center_vertical"
-		android:text="+经由"
-		android:clickable="true"
-		android:layout_row="3"
-		android:layout_column="0" />
-
-	<ImageButton
-		android:layout_width="50dp"
-		android:layout_height="50dp"
-		android:id="@+id/reverseBtn"
-		android:layout_rowSpan="4"
-		android:layout_row="0"
-		android:layout_column="2"
-		android:src="@mipmap/rev1"
-		android:scaleType="fitCenter"
-		android:layout_gravity="center_vertical"/>
-
-</GridLayout>
-<LinearLayout
-	android:id="@+id/line2"
-	android:layout_width="match_parent"
-	android:layout_height="50dp"
-	android:paddingTop="0dp">
-<TextView
-	android:id="@+id/end"
-	android:layout_width="wrap_content"
-	android:layout_height="match_parent"
-	android:text="@string/finish"
-	android:typeface="monospace"
-	android:textStyle="bold"
-	android:gravity="center_vertical"
-	android:layout_gravity="bottom"
-	/>
-<AutoCompleteTextView
-	android:id="@+id/arriveInput"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_gravity="center_vertical"/>
-</LinearLayout>
 <RelativeLayout
-	android:id="@+id/widget42"
-	android:layout_width="match_parent"
-	android:layout_height="77dp">
-<Button
-	android:id="@+id/srchButton"
-	android:layout_width="205dp"
-	android:layout_height="wrap_content"
-	android:background="#ffa500"
-	android:text="@string/search"
-	android:gravity="center"
-	android:layout_alignParentBottom="true"
-	android:layout_centerHorizontal="true" />
+		android:layout_width="fill_parent"
+		android:layout_height="176.0dip"
+		android:layout_marginTop="16.0dip"
+		android:paddingStart="8.0dip"
+		android:paddingEnd="8.0dip">
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="48.0dip" android:layout_alignParentTop="true">
+		<TextView android:textSize="20.0sp"
+			android:textColor="@color/white"
+			android:gravity="center" android:id="@+id/start"
+			android:background="@color/mediumseagreen"
+			android:layout_width="70.0dip" android:layout_height="fill_parent" android:text="@string/start" />
+		<RelativeLayout android:id="@+id/btnFrom"
+			android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
+			<TextView android:textSize="20.0sp" android:textColor="@color/black"
+				android:ellipsize="end" android:gravity="center_vertical"
+				android:id="@+id/txtFrom" android:background="@color/white"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:text="From Station" android:singleLine="true"
+				android:paddingStart="8.0dip" android:paddingEnd="8.0dip" />
+		</RelativeLayout>
+	</LinearLayout>
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_centerVertical="true">
+		<TextView android:textSize="20.0sp" android:textColor="@color/white"
+			android:gravity="center" android:id="@+id/lblTo"
+			android:background="@color/mediumseagreen" android:layout_width="70.0dip"
+			android:layout_height="fill_parent" android:text="@string/finish" />
+		<RelativeLayout android:id="@+id/btnTo" android:clickable="true"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+			<TextView android:textSize="20.0sp" android:textColor="@color/black"
+				android:ellipsize="end" android:gravity="center_vertical"
+				android:id="@+id/txtTo" android:background="@color/white"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:text="To Station" android:singleLine="true"
+				android:paddingStart="8.0dip" android:paddingEnd="8.0dip" />
+		</RelativeLayout>
+	</LinearLayout>
+	<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="48.0dip" android:layout_alignParentBottom="true">
+		<TextView android:textSize="20.0sp" android:textColor="@color/white"
+			android:gravity="center" android:id="@+id/lblTime"
+			android:background="@color/mediumseagreen" android:layout_width="70.0dip"
+			android:layout_height="fill_parent" android:text="@string/time" />
+		<RelativeLayout android:id="@+id/btnTime" android:clickable="true"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+			<TextView android:textSize="20.0sp" android:textColor="@color/black"
+				android:ellipsize="end" android:gravity="center_vertical"
+				android:id="@+id/txtTime" android:background="@color/white"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:text="10/25 12:30 Departure" android:singleLine="true"
+				android:paddingStart="8.0dip" android:paddingEnd="8.0dip" />
+		</RelativeLayout>
+	</LinearLayout>
+	<ImageView android:id="@+id/btnSwap" android:clickable="true" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginTop="34.0dip" android:src="@mipmap/sea_swap" android:scaleType="fitCenter" android:layout_marginEnd="8.0dip" android:layout_alignParentEnd="true" />
 </RelativeLayout>
-
+	<Button android:textSize="20.0sp" android:textColor="@color/white" android:id="@+id/btnSearch" android:background="@color/darkorange" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginTop="16.0dip" android:text="@string/search" android:layout_marginStart="40.0dip" android:layout_marginEnd="40.0dip" />
 </LinearLayout>

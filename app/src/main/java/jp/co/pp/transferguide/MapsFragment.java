@@ -31,8 +31,6 @@ public class MapsFragment extends Fragment {
     public MapsFragment() {
     }
 
-    ;
-
     public MapsFragment(Context c) {
         context = c;
     }
