@@ -27,6 +27,28 @@ public class TransferFragment extends Fragment {
 
     protected int viaCount = 0;
 
+    TextView txtFrom ;
+
+    TextView txtTo;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("txtFrom",(String)txtFrom.getText());
+        outState.putString("txtTo",(String)txtTo.getText());
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // 再生成時にはsavedInstanceStateがnullじゃない
+        if (savedInstanceState != null) {
+            txtFrom.setText(savedInstanceState.getString("txtFrom"));
+            txtTo.setText(savedInstanceState.getString("txtTo"));
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +63,22 @@ public class TransferFragment extends Fragment {
         final RelativeLayout btnFrom = (RelativeLayout)rootView.findViewById(R.id.btnFrom);
         final RelativeLayout btnTo = (RelativeLayout)rootView.findViewById(R.id.btnTo);
 
+        txtFrom = (TextView) btnFrom.findViewById(R.id.txtFrom);
+
+        txtTo = (TextView)  btnTo.findViewById(R.id.txtTo);
+
+        Bundle para = getArguments();
+        if(para != null) {
+            String stationFrom = getArguments().getString("StationNameFrom");
+            String stationTo = getArguments().getString("StationNameTo");
+
+            if (stationFrom != null && !stationFrom.isEmpty()) {
+                txtFrom.setText(stationFrom);
+            }
+            if (stationTo != null && !stationTo.isEmpty()) {
+                txtTo.setText(stationTo);
+            }
+        }
         btnFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +87,21 @@ public class TransferFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 Bundle para = new Bundle();
-                para.putString("FromPara", "fromTransfer");
+                para.putString("FromPara", "fromBtnFrom");
+                stationFragment.setArguments(para);
+                transaction.replace(R.id.content, stationFragment).commit();
+            }
+        });
+
+        btnTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StationFragment stationFragment = new StationFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                Bundle para = new Bundle();
+                para.putString("FromPara", "fromBtnTo");
                 stationFragment.setArguments(para);
                 transaction.replace(R.id.content, stationFragment).commit();
             }
@@ -69,72 +121,6 @@ public class TransferFragment extends Fragment {
 //                text2.setText(tmp);
             }
         });
-
-//        txtVia.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (viaCount >= 3) {
-//                    return;
-//                }
-//
-//                if (viaCount == 2) {
-//                    txtVia.setVisibility(View.GONE);
-//                }
-//                for (int i = 0; i <= viaCount; i++) {
-//                    LinearLayout delLine = (LinearLayout) rootView.findViewById(10 + i);
-//                    g1.removeView(delLine);
-//                }
-//                for (int i = 0; i <= viaCount; i++) {
-//                    TextView viaTitle = new TextView(getActivity());
-//                    viaTitle.setText(getResources().getString(R.string.via) + (i + 1));
-//                    viaTitle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                    viaTitle.setGravity(Gravity.CENTER_VERTICAL);
-//
-//                    EditText viaInput = new EditText(getActivity());
-//                    viaInput.setHint(getResources().getString(R.string.InputVia) + (i + 1));
-//                    viaInput.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                    viaInput.setEms(10);
-//
-//                    ImageButton delBtn = new ImageButton(getActivity());
-//                    delBtn.setId(i);
-//                    delBtn.setImageResource(R.mipmap.del);
-//                    delBtn.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//                    delBtn.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
-//                    delBtn.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            int clickLineIdx = v.getId();
-//                            LinearLayout delLine = (LinearLayout) rootView.findViewById(10 + clickLineIdx);
-//                            g1.removeView(delLine);
-////                            for ( int i = clickLineIdx ; i < viaCount - 1; i++) {
-////                                LinearLayout nextLine = (LinearLayout) findViewById(10 + (i + 1));
-////                                g1.removeView(nextLine) ;
-////                                g1.addView(nextLine,i);
-////                            }
-//                            if (viaCount >= 3) {
-//                                txtVia.setVisibility(View.VISIBLE);
-//                            }
-//                            viaCount--;
-//                        }
-//                    });
-//
-//                    LinearLayout line1Via = new LinearLayout(getActivity());
-//                    line1Via.setLayoutParams(new LinearLayout.LayoutParams(50, LinearLayout.LayoutParams.MATCH_PARENT));
-//                    line1Via.setId(10 + i);
-//                    line1Via.addView(viaTitle);
-//                    line1Via.addView(viaInput);
-//                    line1Via.addView(delBtn);
-//
-//                    GridLayout.Spec rowSpec = GridLayout.spec(i, 1, GridLayout.UNDEFINED);
-//                    GridLayout.Spec colSpec = GridLayout.spec(0, 2, GridLayout.UNDEFINED);
-//
-//                    GridLayout.LayoutParams params = new GridLayout.LayoutParams(rowSpec, colSpec);
-//                    g1.addView(line1Via, params);
-//                }
-//                viaCount++;
-//            }
-//        });
 
         srchButton.setOnClickListener(new View.OnClickListener() {
             @Override

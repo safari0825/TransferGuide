@@ -1,5 +1,7 @@
 package jp.co.pp.transferguide;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -40,6 +42,8 @@ public class StationFragment extends android.app.Fragment implements AdapterView
     private List<String> lineList;
     private List<List<String>> lineStationList;
     private ExpandableListView listView;
+
+    private String fromPara = "";
     //private SectionUtil su;
 
     private AbsListView.OnScrollListener getScrollListener() {
@@ -130,14 +134,42 @@ public class StationFragment extends android.app.Fragment implements AdapterView
 
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent toWayList = new Intent(getActivity().getBaseContext(),WayListActivity.class);
 
-            ExpandableListAdapter adapter = parent.getExpandableListAdapter();
-            toWayList.putExtra("PK_STATION_NAME", (adapter.getChild(groupPosition,childPosition).toString()));
-            toWayList.putExtra("PK_LINE_NAME", adapter.getGroup(groupPosition).toString());
 
-            //指定迁移先画面---时刻表Activity
-            getActivity().startActivity(toWayList);
+            if (fromPara.equals("fromBtnFrom") || fromPara.equals("fromBtnTo")) {
+
+                TransferFragment transferFragment = new TransferFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                if (transferFragment == null) {
+                    // 如果TransferFragment为空，则创建一个并添加到界面上
+                    transferFragment = new TransferFragment();
+                    transaction.add(R.id.content, transferFragment);
+                } else {
+                    // 如果TransferFragment不为空，则直接将它显示出来
+                    //transaction.show(transferFragment);
+                    transaction.replace(R.id.content, transferFragment);
+                }
+
+                Bundle para = new Bundle();
+                ExpandableListAdapter adapter = parent.getExpandableListAdapter();
+                if (fromPara.equals("fromBtnFrom")) {
+                    para.putString("StationNameFrom", (adapter.getChild(groupPosition, childPosition).toString()));
+                } else  {
+                    para.putString("StationNameTo", (adapter.getChild(groupPosition, childPosition).toString()));
+                }
+                transferFragment.setArguments(para);
+                transaction.commit();
+            }else {
+                Intent toWayList = new Intent(getActivity().getBaseContext(), WayListActivity.class);
+
+                ExpandableListAdapter adapter = parent.getExpandableListAdapter();
+                toWayList.putExtra("PK_STATION_NAME", (adapter.getChild(groupPosition, childPosition).toString()));
+                toWayList.putExtra("PK_LINE_NAME", adapter.getGroup(groupPosition).toString());
+
+                //指定迁移先画面---时刻表Activity
+                getActivity().startActivity(toWayList);
+            }
             return false;
         }
     }
@@ -178,6 +210,13 @@ public class StationFragment extends android.app.Fragment implements AdapterView
         this.listView.setOnItemClickListener(this);
         refreshData();
         //refreshListView();
+
+
+        //迁移元的保存；从抽屉过来还是从换乘查询画面过来
+        Bundle para = getArguments();
+        if(para != null) {
+            fromPara = getArguments().getString("FromPara");
+        }
         return stationFragmentLayout;
     }
 
